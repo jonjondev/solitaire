@@ -87,7 +87,9 @@ func on_card_clicked(card: Card):
 	try_bare_off(card)
 
 func try_bare_off(card: Card):
-	if not Card.is_card_movable(card):
+	if not Card.is_card_movable(card) or \
+		Card.get_stacked_card(card) != null or \
+		card.rank == Card.Rank.JOKER:
 		return
 	var foundation_piles: Array[FoundationPile] = get_all_foundation_piles()
 	for pile in foundation_piles:
