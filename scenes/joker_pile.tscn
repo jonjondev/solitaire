@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://cq24qa5x1uwfm"]
+
+[ext_resource type="Script" path="res://scripts/joker_pile.gd" id="1_t4wtr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_byk5e"]
+bg_color = Color(0.0705882, 0.129412, 0.266667, 0.305882)
+border_width_left = 2
+border_width_top = 2
+border_color = Color(0.0702, 0.13014, 0.27, 0.784314)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="JokerPile" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 500.0
+offset_top = 225.0
+offset_right = -502.0
+offset_bottom = -223.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(75, 100)
+theme_override_styles/panel = SubResource("StyleBoxFlat_byk5e")
+script = ExtResource("1_t4wtr")

@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://bibaa7fwlqgam"]
+
+[ext_resource type="Script" path="res://scripts/win_row.gd" id="1_fqa2j"]
+[ext_resource type="FontFile" uid="uid://diw7trdm1jgvs" path="res://fonts/lemon_milk/LEMONMILK-Regular.otf" id="2_5x4k7"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_sioa0"]
+thickness = 2
+
+[node name="WinRow" type="HBoxContainer"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+script = ExtResource("1_fqa2j")
+
+[node name="RankLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_5x4k7")
+text = "#1
+"
+
+[node name="TimeLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_5x4k7")
+text = "2:05:01
+"
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxLine_sioa0")
+
+[node name="DateLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_5x4k7")
+text = "17/10 1997 13:00"

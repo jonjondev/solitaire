@@ -1,0 +1,132 @@
+[gd_scene load_steps=11 format=3 uid="uid://b02n51bq3u6ig"]
+
+[ext_resource type="PackedScene" uid="uid://cknik7ivlhiks" path="res://scenes/board.tscn" id="1_1cn4a"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_2n5sm"]
+[ext_resource type="FontFile" uid="uid://bm64ipp5o7p0o" path="res://fonts/halaney/Halaney-Demo.otf" id="3_vhtwf"]
+[ext_resource type="FontFile" uid="uid://df65lnu2fmbg8" path="res://fonts/lemon_milk/LEMONMILK-Medium.otf" id="4_6yswm"]
+[ext_resource type="Texture2D" uid="uid://br74brtug53kj" path="res://textures/felt_tiling.jpg" id="4_28rk8"]
+[ext_resource type="FontFile" uid="uid://diw7trdm1jgvs" path="res://fonts/lemon_milk/LEMONMILK-Regular.otf" id="5_fqhu3"]
+[ext_resource type="PackedScene" uid="uid://18hbnsyvnis0" path="res://scenes/popup.tscn" id="5_lo156"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_57n22"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g3fvy"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4twkx"]
+texture = ExtResource("4_28rk8")
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Root" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2n5sm")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.227451, 0.298039, 0.407843, 1)
+
+[node name="Board" parent="." instance=ExtResource("1_1cn4a")]
+layout_mode = 1
+pivot_offset = Vector2(576, 324)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ControlsContainer" type="VBoxContainer" parent="Board"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -431.0
+offset_top = -294.0
+offset_right = -282.0
+offset_bottom = -170.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameTitleLabel" type="Label" parent="Board/ControlsContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_vhtwf")
+theme_override_font_sizes/font_size = 25
+text = "Shoshi Solitaire"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Board/ControlsContainer"]
+layout_mode = 2
+
+[node name="ResetButton" type="Button" parent="Board/ControlsContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("4_6yswm")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = SubResource("StyleBoxEmpty_57n22")
+text = "Reset"
+
+[node name="StatsButton" type="Button" parent="Board/ControlsContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("4_6yswm")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = SubResource("StyleBoxEmpty_57n22")
+text = "Stats"
+
+[node name="RulesButton" type="Button" parent="Board/ControlsContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("4_6yswm")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = SubResource("StyleBoxEmpty_57n22")
+text = "Rules"
+
+[node name="HSeparator" type="HSeparator" parent="Board/ControlsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+theme_override_styles/separator = SubResource("StyleBoxEmpty_g3fvy")
+
+[node name="StatsContainer" type="HBoxContainer" parent="Board/ControlsContainer"]
+layout_mode = 2
+
+[node name="WinsTitleLabel" type="Label" parent="Board/ControlsContainer/StatsContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_fqhu3")
+theme_override_font_sizes/font_size = 20
+text = "Wins:"
+
+[node name="WinsValueLabel" type="Label" parent="Board/ControlsContainer/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_fqhu3")
+theme_override_font_sizes/font_size = 20
+text = "0000"
+
+[node name="TextureOverlay" type="Panel" parent="Board"]
+modulate = Color(1, 1, 1, 0.0392157)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_4twkx")
+
+[node name="Popup" parent="." instance=ExtResource("5_lo156")]
+visible = false
+layout_mode = 1
