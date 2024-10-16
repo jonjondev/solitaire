@@ -1,20 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://c6q0kinchtd0d"]
+[gd_scene load_steps=6 format=3 uid="uid://c6q0kinchtd0d"]
 
-[ext_resource type="Script" path="res://scripts/stats.gd" id="1_crwnx"]
 [ext_resource type="FontFile" uid="uid://bm64ipp5o7p0o" path="res://fonts/halaney/Halaney-Demo.otf" id="2_baumf"]
 [ext_resource type="FontFile" uid="uid://diw7trdm1jgvs" path="res://fonts/lemon_milk/LEMONMILK-Regular.otf" id="3_7r113"]
 [ext_resource type="FontFile" uid="uid://df65lnu2fmbg8" path="res://fonts/lemon_milk/LEMONMILK-Medium.otf" id="3_ljvuw"]
 [ext_resource type="FontFile" uid="uid://cp15gltkmhwq8" path="res://fonts/lemon_milk/LEMONMILK-RegularItalic.otf" id="4_8dm5t"]
 [ext_resource type="FontFile" uid="uid://bhyb855ouql2j" path="res://fonts/lemon_milk/LEMONMILK-MediumItalic.otf" id="5_d55tr"]
 
-[node name="Stats" type="VBoxContainer"]
+[node name="Rules" type="VBoxContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_crwnx")
 
 [node name="TitleLabel" type="Label" parent="."]
 layout_mode = 2

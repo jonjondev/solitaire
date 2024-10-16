@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgmgl7q36qakl"]
+
+[ext_resource type="FontFile" uid="uid://diw7trdm1jgvs" path="res://fonts/lemon_milk/LEMONMILK-Regular.otf" id="1_gwp8u"]
+
+[node name="Achievement" type="Label"]
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_gwp8u")
+theme_override_font_sizes/font_size = 10
+text = "None"
+horizontal_alignment = 1

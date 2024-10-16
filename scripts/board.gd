@@ -1,5 +1,6 @@
 class_name Board extends Control
 
+signal card_modified(card: Card)
 signal game_won
 
 const card_scn: PackedScene = preload("res://scenes/card.tscn")
@@ -75,11 +76,12 @@ func create_card(rank: Card.Rank, suit: Card.Suit) -> Card:
 	var card = card_scn.instantiate()
 	card.rank = rank
 	card.suit = suit
-	card.card_stacked.connect(on_card_stacked)
+	card.card_modified.connect(on_card_modified)
 	card.card_clicked.connect(on_card_clicked)
 	return card
 
-func on_card_stacked(_card: Card):
+func on_card_modified(card: Card):
+	card_modified.emit(card)
 	if check_win_condition():
 		game_won.emit()
 

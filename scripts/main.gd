@@ -4,12 +4,13 @@ const savegame_path: String = "user://game_data.ini"
 const stats_scn: PackedScene = preload("res://scenes/stats.tscn")
 const rules_scn: PackedScene = preload("res://scenes/rules.tscn")
 
-const scroll_multiplier: float = 5
+const scroll_multiplier: float = 10
 const pan_multiplier: float = 10
 const max_scroll: float = -300
 
 var wins_data: Array
 var current_start_datetime: String
+var used_joker: bool = false
 
 @onready var board: Board = $Board
 @onready var reset_btn: Button = %ResetButton
@@ -20,6 +21,7 @@ var current_start_datetime: String
 
 func _ready() -> void:
 	load_game()
+	board.card_modified.connect(on_card_modified)
 	board.game_won.connect(on_game_won)
 	reset_btn.pressed.connect(on_reset_pressed)
 	stats_btn.pressed.connect(on_stats_pressed)
@@ -30,12 +32,12 @@ func on_reset_pressed():
 	reset_game()
 
 func on_stats_pressed():
-	var stats = stats_scn.instantiate()
+	var stats: Control = stats_scn.instantiate()
 	stats.populate_wins_data(wins_data)
 	popup.open(stats)
 
 func on_rules_pressed():
-	var rules = rules_scn.instantiate()
+	var rules: Control = rules_scn.instantiate()
 	popup.open(rules)
 
 func reset_game():
@@ -47,10 +49,19 @@ func setup_game():
 	wins_label.text = str(wins_data.size())
 	board.deal_cards()
 	current_start_datetime = Time.get_datetime_string_from_system()
+	used_joker = false
+
+func on_card_modified(card: Card):
+	if card.rank == Card.Rank.JOKER:
+		used_joker = true
 
 func on_game_won():
 	var end_datetime: String = Time.get_datetime_string_from_system()
-	var win_entry = {"start_datetime": current_start_datetime, "end_datetime": end_datetime}
+	var win_entry: Dictionary = {
+		"start_datetime": current_start_datetime,
+		"end_datetime": end_datetime,
+		"used_joker": used_joker
+	}
 	wins_data.append(win_entry)
 	save_game()
 	reset_game()
@@ -75,13 +86,13 @@ func _input(event: InputEvent) -> void:
 func save_game():
 	var config_file := ConfigFile.new()
 	config_file.set_value("Game", "wins_data", wins_data)
-	var error := config_file.save(savegame_path)
+	var error: Error = config_file.save(savegame_path)
 	if error:
 		push_error("Save error: ", error)
 
 func load_game():
-	var config_file := ConfigFile.new()
-	var error := config_file.load(savegame_path)
+	var config_file: ConfigFile = ConfigFile.new()
+	var error: Error = config_file.load(savegame_path)
 	if error:
 		push_error("Load error: ", error)
 		return

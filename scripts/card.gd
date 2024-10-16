@@ -95,24 +95,24 @@ static func get_root_pile(node: Node) -> Pile:
 			return node
 	return null
 
-signal card_stacked(card: Card)
+signal card_modified(card: Card)
 signal card_clicked(card: Card)
 
 @export var rank: Rank
 @export var suit: Suit
 
-var in_click = false
-var mouse_over = false
-
-var dragging = false:
+var in_click: bool = false
+var mouse_over: bool = false
+var dragging: bool = false:
 	set(new_dragging):
 		dragging = new_dragging
 		mouse_filter = MOUSE_FILTER_IGNORE if dragging else MOUSE_FILTER_STOP
 		z_index = 100 if dragging else 0
 
+var drag_offset: Vector2 = Vector2.ZERO
+
 @onready var reset_pos: Vector2 = global_position
 @onready var reset_z: int = z_index
-var drag_offset: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	mouse_entered.connect(func(): mouse_over = true)
@@ -168,16 +168,10 @@ func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
 
 func _drop_data(_at_position: Vector2, data: Variant) -> void:
 	if data.rank == Rank.JOKER:
-		data.rank = rank
-		data.suit = suit
-		rank = Rank.JOKER
-		suit = Suit.JOKER
-		update_visuals()
-		data.update_visuals()
-		card_stacked.emit(self)
+		swap(data)
 	else:
 		var pile: Pile = get_root_pile(self)
-		var stack_offset = pile.get_card_stack_offset() if pile else Vector2(0, 50)
+		var stack_offset: Vector2 = pile.get_card_stack_offset() if pile else Vector2(0, 50)
 		data.stack(self, stack_offset)
 
 func start_drag():
@@ -186,13 +180,25 @@ func start_drag():
 	drag_offset = global_position - get_viewport().get_mouse_position()
 	dragging = true
 
+func swap(other_card: Card):
+	var temp_rank: Rank = other_card.rank
+	var temp_suit: Suit = other_card.suit
+	other_card.rank = rank
+	other_card.suit = suit
+	other_card.update_visuals()
+	other_card.card_modified.emit(other_card)
+	rank = temp_rank
+	suit = temp_suit
+	update_visuals()
+	card_modified.emit(self)
+
 func stack(parent: Node, offset: Vector2):
 	if get_parent():
 		reparent(parent, true)
 	else:
 		parent.add_child(self)
 	end_drag(parent.global_position + offset, parent.z_index + 1)
-	card_stacked.emit(self)
+	card_modified.emit(self)
 
 func end_drag(pos: Vector2, z: int):
 	global_position = pos

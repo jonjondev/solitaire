@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://d4fxmyr6sdyvq"]
+[gd_scene load_steps=6 format=3 uid="uid://d4fxmyr6sdyvq"]
 
 [ext_resource type="FontFile" uid="uid://bm64ipp5o7p0o" path="res://fonts/halaney/Halaney-Demo.otf" id="1_akkq8"]
 [ext_resource type="Script" path="res://scripts/stats.gd" id="1_cv4ss"]
 [ext_resource type="FontFile" uid="uid://df65lnu2fmbg8" path="res://fonts/lemon_milk/LEMONMILK-Medium.otf" id="3_2tsch"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_a4c2y"]
+thickness = 0
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_5mgo2"]
 thickness = 2
@@ -36,12 +39,31 @@ text = "Total Wins:"
 horizontal_alignment = 1
 
 [node name="WinsValueLabel" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_2tsch")
 theme_override_font_sizes/font_size = 16
 text = "0000"
 horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxLine_a4c2y")
+
+[node name="AchievementsLabel" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_2tsch")
+theme_override_font_sizes/font_size = 10
+text = "Achievements:"
+horizontal_alignment = 1
+
+[node name="AchievementsContainer" type="HBoxContainer" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="."]
 layout_mode = 2
