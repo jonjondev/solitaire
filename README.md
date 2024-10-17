@@ -15,5 +15,5 @@ The **_JOKER pile_**, may only contain one card at a time; the **JOKER** card or
 ## Running the WASM build locally
 Simply navigate to the root of the project and run the following command:
 ```console
-python3 docs/serve.py --root .
+python docs/serve.py --root .
 ```

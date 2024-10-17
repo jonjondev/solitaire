@@ -7,4 +7,6 @@ func set_data(data: Variant, rank: int):
 	var seconds: int = data.duration%60
 	$TimeLabel.text = "%02d:%02d:%02d"%[hours, minutes, seconds]
 	var datetime: Dictionary = Time.get_datetime_dict_from_datetime_string(data.start_datetime, false)
-	$DateLabel.text = "{day}/{month} {year} {hour}:{minute}".format(datetime) 
+	var hour: int = int(datetime.hour)
+	var minute: int = int(datetime.minute)
+	$DateLabel.text = "{day}/{month} {year} ".format(datetime) + "%02d:%02d"%[hour, minute]
